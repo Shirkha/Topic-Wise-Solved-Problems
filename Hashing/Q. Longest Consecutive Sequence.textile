@@ -1,0 +1,54 @@
+Q. Longest Consecutive Sequence
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& arr) {
+       int n = arr.size();
+       if(n == 0)
+           return 0;
+
+//         sort(arr.begin(),arr.end());
+//         int ans = 1;
+//         int cnt = 1;
+        
+//         for(int i=1; i<n; i++){
+//            if(arr[i] == arr[i-1])                   // O(NlogN)
+//                continue;
+//            else if(arr[i] == arr[i-1] + 1)
+//                   cnt++;
+//            else{
+//                ans = max(ans,cnt);
+//                cnt = 1;
+//            }
+//         }
+//         ans = max(ans,cnt);
+//         return ans; 
+        
+    O(N) ---> TC O(N)-->SC
+
+        unordered_set<int> ds(arr.begin(),arr.end());  O(N) -->TC
+        
+        int maxl = 1;
+        int se = arr[0];
+        for(int i=0; i<n; i++){
+            int cse = arr[i];
+            int cnt = 1;
+            if(ds.count(cse - 1) == 0){
+                int ce = cse;                  O(N) + O(N) -->TC
+                while(ds.count(ce+1)){
+                    ce = ce + 1;
+                    cnt++;
+                }
+            if(cnt > maxl){
+                    maxl = cnt;
+                    se = cse;
+                }
+            }
+        }
+        //print the longest sequence
+        for(int i=0; i<maxl; i++)
+            cout<<se+i<<" ";
+            
+        return maxl;
+    }
+};
